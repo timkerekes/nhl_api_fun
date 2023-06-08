@@ -13,9 +13,26 @@ def getNhlTeam(team_id):
 
     if response.status_code == 200:
         response_dump = json.dumps(response.json(), indent=4)
-        data = json.loads(response_dump)
+        team_info = json.loads(response_dump)
 
-        return data
+        for team in team_info['teams']:
+            venue_name = team['venue']['name']
+            venue_city = team['venue']['city']
+            venue_tz = team['venue']['timeZone']['tz']
+            first_year_play = team['firstYearOfPlay']
+            conf_name = team['conference']['name']
+            div_name = team['division']['name']
+            team_site_url = team['officialSiteUrl']
+
+            print(f'Venue: {venue_name}')
+            print(f'City: {venue_city}')
+            print(f'TimeZone: {venue_tz}')
+            print(f'Est.{first_year_play}')
+            print(f'\nConference: {conf_name}')
+            print(f'Division: {div_name}')
+            print(f'\nOfficial Site URL: {team_site_url}')
+
+        return team_info
     else:
         print('Error', response.status_code)
 
@@ -33,12 +50,12 @@ def getNhlTeamId(team_name):
         response_dump = json.dumps(response.json(), indent=4)
         data = json.loads(response_dump)
 
-        # print(data['teams'])
         for team in data['teams']:
             name = team['name']
+            name_abbr = team['abbreviation']
             teamName = team['teamName']
             if name == team_name or teamName == team_name:
-                print(name)
+                print(f'\n{name} - {name_abbr}')
                 id = team['id']
                 return id
 
@@ -61,6 +78,7 @@ def getNhlStandings(team_name):
         data = json.loads(response_dump)
 
         team_id = getNhlTeamId(team_name)
+        getNhlTeam(team_id)
 
         for item in data['records']:
             team_records_arrays = [value for key,
@@ -73,7 +91,12 @@ def getNhlStandings(team_name):
                     if id == team_id:
                         points = team_record['points']
                         leagueRecord = team_record['leagueRecord']
+                        goalsScored = team_record['goalsScored']
+                        goalsAgainst = team_record['goalsAgainst']
+                        print(f'\nStandings:')
                         print(f'\tPoints: {points}')
+                        print(f'\tGoals Scored: {goalsScored}')
+                        print(f'\tGoals Against: {goalsAgainst}')
                         print('\tLeague Record:')
                         for key, value in leagueRecord.items():
                             if key == "type":
@@ -85,5 +108,8 @@ def getNhlStandings(team_name):
 
 team_name = input("Enter in an NHL team: ")
 
+# team_id = getNhlTeamId(team_name)
+
 # getNhlTeam(team_id)
+
 getNhlStandings(team_name)
