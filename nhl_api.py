@@ -55,7 +55,7 @@ def getNhlTeamId(team_name):
             name_abbr = team['abbreviation']
             teamName = team['teamName']
             if name == team_name or teamName == team_name:
-                print(f'\n{name} - {name_abbr}')
+                print(f'{name} - {name_abbr}')
                 id = team['id']
                 return id
 
@@ -106,7 +106,12 @@ def getNhlStandings(team_name):
         print('Error', response.status_code)
 
 
+print('\n---------------------------------------------------------------------')
+print("Please fill out the following prompts to specify resulting records.")
+print('---------------------------------------------------------------------\n')
 team_name = input("Enter in an NHL team: ")
+
+print('\nRESULTS: ------------------------------------------------------------\n')
 
 # team_id = getNhlTeamId(team_name)
 
