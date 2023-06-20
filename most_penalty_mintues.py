@@ -4,7 +4,7 @@ import datetime
 from urllib.parse import urlencode
 
 
-def getMostPenaltyMinutesPerSeason(penaltyMinutes=None, franchiseId=None, seasonId=None):
+def getMostPenaltyMinutes(penaltyMinutes=None, franchiseId=None, seasonId=None):
     penaltyMinutes = int(penaltyMinutes) if penaltyMinutes else 300
     franchiseId = franchiseId or 'null'
 
@@ -53,4 +53,4 @@ seasonId = input(
 print('\nRESULTS: ------------------------------------------------------------\n')
 
 
-getMostPenaltyMinutesPerSeason(penaltyMinutes, franchiseId, seasonId)
+getMostPenaltyMinutes(penaltyMinutes, franchiseId, seasonId)

@@ -2,6 +2,7 @@
 import customtkinter
 from PIL import Image
 
+
 # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_appearance_mode("Dark")
 # Themes: "blue" (standard), "green", "dark-blue"
