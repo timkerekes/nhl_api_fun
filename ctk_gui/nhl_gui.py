@@ -1,9 +1,8 @@
-# import tkinter
+import tkinter
 import customtkinter
 from PIL import Image
 import sys
 import os
-from pynput import keyboard
 
 # Add the parent folder to the Python module search path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -76,6 +75,8 @@ class App(customtkinter.CTk):
         self.get_team_info_entry = customtkinter.CTkEntry(self.center_frame,
                                                           placeholder_text="Enter Team Name")
         self.get_team_info_entry.grid(row=0, column=2, padx=20, pady=(10, 10))
+        self.get_team_info_entry.bind("<Return>", self.get_team_info)
+
 
         self.get_team_info_button = customtkinter.CTkButton(self.center_frame,
                                                             text="Search", command=self.get_team_info)
@@ -92,9 +93,6 @@ class App(customtkinter.CTk):
 
         self.get_team_info_entry.focus_set()
 
-        self.keyboard_listener = keyboard.Listener(on_press=self.on_key_press)
-        self.keyboard_listener.start()
-
     ##########################FUNCTIONS##########################
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
@@ -104,7 +102,7 @@ class App(customtkinter.CTk):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
 
-    def get_team_info(self):
+    def get_team_info(self, event=None):
         self.output_textbox.configure(state='normal')
         self.output_textbox.delete("0.0", "end")
         team = self.get_team_info_entry.get().lower()
@@ -120,10 +118,10 @@ class App(customtkinter.CTk):
         
     #### HANDLE KEY PRESS ####
         
-    def on_key_press(self, key):
-        if key == keyboard.Key.enter:
-            print('Enter key pressed')
-            self.get_team_info()
+    # def on_key_press(self, event):
+    #     if event.keysym == "Return":
+    #         print('Enter key pressed')
+    #         self.get_team_info()
 
 
 if __name__ == "__main__":
