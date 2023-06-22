@@ -73,7 +73,7 @@ def getNhlTeamId(team_name):
                 id = team['id']
                 return output, id
             
-            error_message = 'No team found by that name...'
+            error_message = 'No Team Found By That Name...\n\nPlease Try Again'
             error_id = -1
 
         return error_message, error_id

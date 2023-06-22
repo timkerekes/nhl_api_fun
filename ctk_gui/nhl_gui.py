@@ -114,7 +114,7 @@ class App(customtkinter.CTk):
             self.output_textbox.insert("0.0", results)
             self.output_textbox.configure(state='disabled')
         else:
-            error = self.output_textbox.insert("0.0", "Not a valid entry, please try again")
+            error = self.output_textbox.insert("0.0", "Please Enter A Team Name Above\n(Eg. Colorado Avalanche, Avalanche, avalanche)")
             self.output_textbox.configure(state='disabled')
             return error
         
