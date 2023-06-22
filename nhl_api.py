@@ -24,15 +24,25 @@ def getNhlTeam(team_id):
             div_name = team['division']['name']
             team_site_url = team['officialSiteUrl']
 
-            print(f'Venue: {venue_name}')
-            print(f'City: {venue_city}')
-            print(f'TimeZone: {venue_tz}')
-            print(f'Est.{first_year_play}')
-            print(f'\nConference: {conf_name}')
-            print(f'Division: {div_name}')
-            print(f'\nOfficial Site URL: {team_site_url}')
+            all_team_info = (
+                f'Venue: {venue_name}\n'
+                f'City: {venue_city}\n'
+                f'TimeZone: {venue_tz}\n'
+                f'Est.{first_year_play}\n'
+                f'\nConference: {conf_name}\n'
+                f'Division: {div_name}\n'
+                f'\nOfficial Site URL: {team_site_url}'
+            )
 
-        return team_info
+            # print(f'Venue: {venue_name}')
+            # print(f'City: {venue_city}')
+            # print(f'TimeZone: {venue_tz}')
+            # print(f'Est.{first_year_play}')
+            # print(f'\nConference: {conf_name}')
+            # print(f'Division: {div_name}')
+            # print(f'\nOfficial Site URL: {team_site_url}')
+
+        return all_team_info
     else:
         print('Error', response.status_code)
 
@@ -52,14 +62,21 @@ def getNhlTeamId(team_name):
 
         for team in data['teams']:
             name = team['name']
+            name_lowered = name.lower()
             name_abbr = team['abbreviation']
             teamName = team['teamName']
-            if name == team_name or teamName == team_name:
-                print(f'{name} - {name_abbr}')
+            teamName_lowered = teamName.lower()
+            team_name_lowered = team_name.lower()
+            if name_lowered == team_name_lowered or teamName_lowered == team_name_lowered:
+                # print(f'{name} - {name_abbr}')
+                output = f'{name} - {name_abbr}'
                 id = team['id']
-                return id
+                return output, id
+            
+            error_message = 'No team found by that name...'
+            error_id = -1
 
-        return ('No team found by that name...')
+        return error_message, error_id
     else:
         print('Error', response.status_code)
 
@@ -77,8 +94,11 @@ def getNhlStandings(team_name):
         response_dump = json.dumps(response.json(), indent=4)
         data = json.loads(response_dump)
 
-        team_id = getNhlTeamId(team_name)
-        getNhlTeam(team_id)
+        team_name_output, team_id = getNhlTeamId(team_name)
+        if team_id == -1:
+            return team_name_output
+        
+        team_info = getNhlTeam(team_id)
 
         for item in data['records']:
             team_records_arrays = [value for key,
@@ -93,28 +113,41 @@ def getNhlStandings(team_name):
                         leagueRecord = team_record['leagueRecord']
                         goalsScored = team_record['goalsScored']
                         goalsAgainst = team_record['goalsAgainst']
-                        print(f'\nStandings:')
-                        print(f'\tPoints: {points}')
-                        print(f'\tGoals Scored: {goalsScored}')
-                        print(f'\tGoals Against: {goalsAgainst}')
-                        print('\tLeague Record:')
-                        for key, value in leagueRecord.items():
-                            if key == "type":
-                                continue
-                            print(f'\t\t{key}: {value}')
+
+                        # print(f'\nStandings:')
+                        # print(f'\tPoints: {points}')
+                        # print(f'\tGoals Scored: {goalsScored}')
+                        # print(f'\tGoals Against: {goalsAgainst}')
+                        # print('\tLeague Record:')
+                        # for key, value in leagueRecord.items():
+                        #     if key == "type":
+                        #         continue
+                        #     print(f'\t\t{key}: {value}')
+                        
+                        standings = (
+                            f'\nStandings:'
+                            f'\n\tPoints: {points}'
+                            f'\n\tGoals Scored: {goalsScored}'
+                            f'\n\tGoals Against: {goalsAgainst}'
+                            f'\n\tLeague Record:'
+                            + ''.join([f'\n\t\t{key}: {value}' for key, value in leagueRecord.items() if key != 'type'])
+                        )
+
+                        return f'{team_name_output}\n{team_info}\n{standings}'
+
     else:
         print('Error', response.status_code)
 
 
-print('\n---------------------------------------------------------------------')
-print("Please fill out the following prompts to specify resulting records.")
-print('---------------------------------------------------------------------\n')
-team_name = input("Enter in an NHL team: ")
+# print('\n---------------------------------------------------------------------')
+# print("Please fill out the following prompts to specify resulting records.")
+# print('---------------------------------------------------------------------\n')
+# team_name = input("Enter in an NHL team: ")
 
-print('\nRESULTS: ------------------------------------------------------------\n')
+# print('\nRESULTS: ------------------------------------------------------------\n')
 
-# team_id = getNhlTeamId(team_name)
+# # team_id = getNhlTeamId(team_name)
 
-# getNhlTeam(team_id)
+# # getNhlTeam(team_id)
 
-getNhlStandings(team_name)
+# getNhlStandings(team_name)
