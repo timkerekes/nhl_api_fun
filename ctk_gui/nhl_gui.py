@@ -38,13 +38,17 @@ class App(customtkinter.CTk):
         self.nhl_image = customtkinter.CTkImage(light_image=Image.open("./NHL_LOGO.png"),
                                                dark_image=Image.open(
             "./NHL_LOGO.png"),
-            size=(199.2, 143.4))
+            size=(99.6, 71.7))
 
         self.nhl_image_label = customtkinter.CTkLabel(
             self.sidebar_frame, image=self.nhl_image, text="")
         self.nhl_image_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         ############## Player LOGO ##############
+        self.player_image_label_text = customtkinter.CTkLabel(
+            self.sidebar_frame, text="Player", font=customtkinter.CTkFont(size=20), anchor='w')
+        self.player_image_label_text.grid(row=1, column=0, padx=20, pady=(20, 10))
+
         self.player_image = customtkinter.CTkImage(light_image=Image.open("./hockey_player.png"),
                                                dark_image=Image.open(
             "./hockey_player.png"),
@@ -52,13 +56,13 @@ class App(customtkinter.CTk):
 
         self.player_image_label = customtkinter.CTkLabel(
             self.sidebar_frame, image=self.player_image, text="")
-        self.player_image_label.grid(row=1, column=0, padx=20, pady=(20, 10))
-
-        self.player_image_label_text = customtkinter.CTkLabel(
-            self.sidebar_frame, image=self.player_image, text="")
-        self.player_image_label_text.grid(row=1, column=0, padx=20, pady=(20, 10))
+        self.player_image_label.grid(row=2, column=0, padx=20, pady=(20, 10))        
 
         ############## Goalie LOGO ##############
+        self.player_image_label_text = customtkinter.CTkLabel(
+            self.sidebar_frame, text="Goalie", font=customtkinter.CTkFont(size=20), anchor='w')
+        self.player_image_label_text.grid(row=3, column=0, padx=20, pady=(20, 10))
+        
         self.goalie_image = customtkinter.CTkImage(light_image=Image.open("./hockey_goalie.png"),
                                                dark_image=Image.open(
             "./hockey_goalie.png"),
@@ -66,9 +70,13 @@ class App(customtkinter.CTk):
 
         self.goalie_image_label = customtkinter.CTkLabel(
             self.sidebar_frame, image=self.goalie_image, text="")
-        self.goalie_image_label.grid(row=2, column=0, padx=20, pady=(20, 10))
+        self.goalie_image_label.grid(row=4, column=0, padx=20, pady=(20, 10))
 
         ############## Team LOGO ##############
+        self.player_image_label_text = customtkinter.CTkLabel(
+            self.sidebar_frame, text="Team", font=customtkinter.CTkFont(size=20), anchor='w')
+        self.player_image_label_text.grid(row=5, column=0, padx=20, pady=(20, 10))
+
         self.team_image = customtkinter.CTkImage(light_image=Image.open("./team_logo.png"),
                                                dark_image=Image.open(
             "./team_logo.png"),
@@ -76,25 +84,25 @@ class App(customtkinter.CTk):
 
         self.team_image_label = customtkinter.CTkLabel(
             self.sidebar_frame, image=self.team_image, text="")
-        self.team_image_label.grid(row=3, column=0, padx=20, pady=(20, 10))
+        self.team_image_label.grid(row=6, column=0, padx=20, pady=(20, 10))
 
         ############## Appearance Settings ##############
         self.appearance_mode_label = customtkinter.CTkLabel(
             self.sidebar_frame, text="Appearance Mode:", anchor="w")
-        self.appearance_mode_label.grid(row=4, column=0, padx=20, pady=(10, 0))
+        self.appearance_mode_label.grid(row=7, column=0, padx=20, pady=(10, 0))
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],
                                                                        command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.set("Dark")
         self.appearance_mode_optionemenu.grid(
-            row=5, column=0, padx=20, pady=(10, 10))
+            row=8, column=0, padx=20, pady=(10, 10))
 
         self.scaling_label = customtkinter.CTkLabel(
             self.sidebar_frame, text="UI Scaling:", anchor="w")
-        self.scaling_label.grid(row=6, column=0, padx=20, pady=(10, 0))
+        self.scaling_label.grid(row=9, column=0, padx=20, pady=(10, 0))
         self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
                                                                command=self.change_scaling_event)
         self.scaling_optionemenu.set("100%")
-        self.scaling_optionemenu.grid(row=7, column=0, padx=20, pady=(10, 10))
+        self.scaling_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 10))
 
         #### Create Searching Options Frame & Widgets ####
         self.center_frame = customtkinter.CTkFrame(

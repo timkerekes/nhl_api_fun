@@ -68,9 +68,8 @@ def getNhlTeamId(team_name):
             teamName_lowered = teamName.lower()
             team_name_lowered = team_name.lower()
             if name_lowered == team_name_lowered or teamName_lowered == team_name_lowered:
-                # print(f'{name} - {name_abbr}')
-                output = f'{name} - {name_abbr}'
                 id = team['id']
+                output = f'{name} - {name_abbr}'
                 return output, id
             
             error_message = 'No Team Found By That Name...\n\nPlease Try Again'
@@ -133,7 +132,7 @@ def getNhlStandings(team_name):
                             + ''.join([f'\n\t\t{key}: {value}' for key, value in leagueRecord.items() if key != 'type'])
                         )
 
-                        return f'{team_name_output}\n{team_info}\n{standings}'
+                        return f'{team_name_output}\nID: {team_id}\n{team_info}\n{standings}'
 
     else:
         print('Error', response.status_code)
